@@ -1,0 +1,38 @@
+*.swp
+*.swo
+*~
+.DS_Store
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Build output
+build/
+publish/
+dist/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.DotSettings.user
+
+# Config (keep example)
+config.json
+!config.example.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Test results
+TestResults/
+*.trx
+*.coverage

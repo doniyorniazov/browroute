@@ -1,0 +1,310 @@
+{
+  "version": "1.0",
+  "defaultBrowser": "Brave",
+  "browsers": {
+    "Brave": {
+      "bundleId": "com.brave.Browser",
+      "executablePath": "/Applications/Brave Browser.app",
+      "supportsProfiles": false
+    },
+    "Dia": {
+      "bundleId": "app.dia.macos",
+      "executablePath": "/Applications/Dia.app",
+      "supportsProfiles": true,
+      "profileSwitchMethod": "url-parameter"
+    },
+    "Comet": {
+      "bundleId": "ai.perplexity.comet",
+      "executablePath": "/Applications/Comet.app",
+      "supportsProfiles": false
+    }
+  },
+  "personalSites": [
+    "youtube.com",
+    "instagram.com",
+    "facebook.com",
+    "twitter.com",
+    "reddit.com",
+    "linkedin.com",
+    "netflix.com",
+    "spotify.com"
+  ],
+  "teams": [
+    {
+      "name": "Benevia",
+      "cloud": "Azure",
+      "domains": [
+        "silkroadprofessionals.com"
+      ],
+      "githubOrgs": [
+        "beneviasoftware"
+      ],
+      "browser": "Dia",
+      "profile": "Benevia",
+      "additionalDomains": [
+        "benevia.com"
+      ]
+    },
+    {
+      "name": "DoorLink",
+      "cloud": "Azure",
+      "domains": [
+        "premierellc.com"
+      ],
+      "githubOrgs": [
+        "doniyorniazov"
+      ],
+      "browser": "Dia",
+      "profile": "DoorLink"
+    },
+    {
+      "name": "PCBE",
+      "cloud": "Azure",
+      "domains": [
+        "silkroadprofessionals.com"
+      ],
+      "githubOrgs": [
+        "SilkRoadProfessionals"
+      ],
+      "githubRepoPatterns": [
+        "SilkRoadProfessionals/pcbe*"
+      ],
+      "browser": "Dia",
+      "profile": "PCBE"
+    },
+    {
+      "name": "Rosewood",
+      "cloud": "GCP",
+      "domains": [
+        "gmail.com"
+      ],
+      "githubOrgs": [
+        "rosewood-org"
+      ],
+      "browser": "Dia",
+      "profile": "Rosewood"
+    },
+    {
+      "name": "Run3D",
+      "cloud": "AWS",
+      "domains": [
+        "gmail.com"
+      ],
+      "githubOrgs": [
+        "run3d-org"
+      ],
+      "browser": "Dia",
+      "profile": "Run3D"
+    },
+    {
+      "name": "Silk Road Professionals",
+      "domains": [
+        "silkroadprofessionals.com"
+      ],
+      "githubOrgs": [
+        "doniyorniazov"
+      ],
+      "browser": "Dia",
+      "profile": "SilkRoad",
+      "additionalDomains": [
+        "app.ninety.io"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "name": "Personal Sites",
+      "priority": 100,
+      "browser": "Brave",
+      "patterns": [
+        "youtube.com/*",
+        "*.youtube.com/*",
+        "instagram.com/*",
+        "*.instagram.com/*",
+        "facebook.com/*",
+        "*.facebook.com/*",
+        "twitter.com/*",
+        "*.twitter.com/*",
+        "reddit.com/*",
+        "*.reddit.com/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Research - Perplexity",
+      "priority": 95,
+      "browser": "Comet",
+      "patterns": [
+        "perplexity.ai/*",
+        "*.perplexity.ai/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Benevia - GitHub",
+      "priority": 90,
+      "browser": "Dia",
+      "profile": "Benevia",
+      "patterns": [
+        "github.com/beneviasoftware/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Benevia - Azure",
+      "priority": 90,
+      "browser": "Dia",
+      "profile": "Benevia",
+      "patterns": [
+        "portal.azure.com/*",
+        "dev.azure.com/*",
+        "*.visualstudio.com/*"
+      ],
+      "patternType": "glob",
+      "conditions": {
+        "or": {
+          "queryContains": [
+            "silkroadprofessionals.com",
+            "benevia"
+          ],
+          "pathContains": [
+            "/benevia",
+            "/BEN-"
+          ]
+        }
+      }
+    },
+    {
+      "name": "DoorLink - GitHub",
+      "priority": 85,
+      "browser": "Dia",
+      "profile": "DoorLink",
+      "patterns": [
+        "github.com/*/doorlink*",
+        "github.com/doorlink*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "DoorLink - Azure",
+      "priority": 85,
+      "browser": "Dia",
+      "profile": "DoorLink",
+      "patterns": [
+        "portal.azure.com/*",
+        "dev.azure.com/*"
+      ],
+      "patternType": "glob",
+      "conditions": {
+        "queryContains": [
+          "premierellc.com",
+          "doorlink"
+        ]
+      }
+    },
+    {
+      "name": "PCBE - GitHub",
+      "priority": 85,
+      "browser": "Dia",
+      "profile": "PCBE",
+      "patterns": [
+        "github.com/SilkRoadProfessionals/pcbe*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "PCBE - Azure",
+      "priority": 85,
+      "browser": "Dia",
+      "profile": "PCBE",
+      "patterns": [
+        "portal.azure.com/*",
+        "dev.azure.com/*"
+      ],
+      "patternType": "glob",
+      "conditions": {
+        "or": {
+          "queryContains": [
+            "pcbe"
+          ],
+          "pathContains": [
+            "/pcbe",
+            "/PCBE"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Rosewood - GitHub",
+      "priority": 80,
+      "browser": "Dia",
+      "profile": "Rosewood",
+      "patterns": [
+        "github.com/rosewood-org/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Rosewood - GCP",
+      "priority": 80,
+      "browser": "Dia",
+      "profile": "Rosewood",
+      "patterns": [
+        "console.cloud.google.com/*",
+        "*.cloud.google.com/*"
+      ],
+      "patternType": "glob",
+      "conditions": {
+        "queryContains": [
+          "rosewood"
+        ]
+      }
+    },
+    {
+      "name": "Run3D - GitHub",
+      "priority": 80,
+      "browser": "Dia",
+      "profile": "Run3D",
+      "patterns": [
+        "github.com/run3d-org/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Run3D - AWS",
+      "priority": 80,
+      "browser": "Dia",
+      "profile": "Run3D",
+      "patterns": [
+        "console.aws.amazon.com/*",
+        "*.console.aws.amazon.com/*"
+      ],
+      "patternType": "glob",
+      "conditions": {
+        "queryContains": [
+          "run3d"
+        ]
+      }
+    },
+    {
+      "name": "Silk Road - Ninety",
+      "priority": 75,
+      "browser": "Dia",
+      "profile": "SilkRoad",
+      "patterns": [
+        "app.ninety.io/*"
+      ],
+      "patternType": "glob"
+    },
+    {
+      "name": "Silk Road - General",
+      "priority": 75,
+      "browser": "Dia",
+      "profile": "SilkRoad",
+      "patterns": [
+        "*.silkroadprofessionals.com/*"
+      ],
+      "patternType": "glob"
+    }
+  ]
+}

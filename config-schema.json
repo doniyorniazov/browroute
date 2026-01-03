@@ -1,0 +1,211 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BrowRoute Configuration",
+  "type": "object",
+  "required": [
+    "version",
+    "defaultBrowser",
+    "browsers",
+    "teams"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Configuration schema version",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "defaultBrowser": {
+      "type": "string",
+      "description": "Default browser to use when no rules match"
+    },
+    "browsers": {
+      "type": "object",
+      "description": "Browser configurations",
+      "patternProperties": {
+        "^[A-Za-z0-9_]+$": {
+          "type": "object",
+          "required": [
+            "bundleId",
+            "executablePath"
+          ],
+          "properties": {
+            "bundleId": {
+              "type": "string",
+              "description": "macOS bundle identifier"
+            },
+            "executablePath": {
+              "type": "string",
+              "description": "Full path to browser application"
+            },
+            "supportsProfiles": {
+              "type": "boolean",
+              "description": "Whether browser supports multiple profiles"
+            },
+            "profileSwitchMethod": {
+              "type": "string",
+              "enum": [
+                "url-parameter",
+                "applescript",
+                "cli-argument"
+              ],
+              "description": "Method to switch profiles"
+            },
+            "profilePathTemplate": {
+              "type": "string",
+              "description": "Template for profile path with {profile} placeholder"
+            }
+          }
+        }
+      }
+    },
+    "teams": {
+      "type": "array",
+      "description": "Team configurations for automatic routing",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "browser"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Team name"
+          },
+          "cloud": {
+            "type": "string",
+            "enum": [
+              "Azure",
+              "AWS",
+              "GCP"
+            ],
+            "description": "Cloud provider used by team"
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Email domains associated with team"
+          },
+          "githubOrgs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "GitHub organizations"
+          },
+          "githubRepoPatterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "GitHub repository patterns (supports wildcards)"
+          },
+          "browser": {
+            "type": "string",
+            "description": "Browser to use for this team"
+          },
+          "profile": {
+            "type": "string",
+            "description": "Browser profile name"
+          },
+          "additionalDomains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Additional domains specific to this team"
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "description": "Custom routing rules",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "priority",
+          "browser",
+          "patterns"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Rule name"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Rule priority (higher = evaluated first)"
+          },
+          "browser": {
+            "type": "string",
+            "description": "Target browser"
+          },
+          "profile": {
+            "type": "string",
+            "description": "Browser profile (if supported)"
+          },
+          "patterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "URL patterns (supports wildcards and regex)"
+          },
+          "patternType": {
+            "type": "string",
+            "enum": [
+              "glob",
+              "regex",
+              "exact"
+            ],
+            "default": "glob",
+            "description": "Pattern matching type"
+          },
+          "conditions": {
+            "type": "object",
+            "description": "Additional matching conditions",
+            "properties": {
+              "queryContains": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pathContains": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pathMatches": {
+                "type": "string",
+                "description": "Regex pattern for path"
+              },
+              "or": {
+                "type": "object",
+                "description": "Alternative conditions (any must match)"
+              },
+              "and": {
+                "type": "object",
+                "description": "Required conditions (all must match)"
+              }
+            }
+          }
+        }
+      }
+    },
+    "personalSites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Domains for personal browsing (routed to personal browser)"
+    }
+  }
+}
